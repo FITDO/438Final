@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://21csi7iuvy8c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2b53u"]
+size = Vector3(1, 0, 1)
+
+[node name="MousePlane" type="StaticBody3D"]
+collision_layer = 128
+collision_mask = 255
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_2b53u")

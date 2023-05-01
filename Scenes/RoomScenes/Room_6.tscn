@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdbqacd05jfnc"]
+
+[ext_resource type="PackedScene" uid="uid://df3ym3bkhgl4a" path="res://Prefabs/Floors/room_6_floor.tscn" id="1_61o3g"]
+[ext_resource type="PackedScene" uid="uid://8t4cbcguyj2b" path="res://Prefabs/Sun.tscn" id="2_1xax7"]
+
+[node name="Room6" type="Node3D"]
+
+[node name="Room6Floor" parent="." instance=ExtResource("1_61o3g")]
+
+[node name="Sun" parent="." instance=ExtResource("2_1xax7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -10)
+
+[node name="Sun2" parent="." instance=ExtResource("2_1xax7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 10, -25)
+
+[node name="Sun3" parent="." instance=ExtResource("2_1xax7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 10, -25)
+
+[node name="Sun4" parent="." instance=ExtResource("2_1xax7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -45)

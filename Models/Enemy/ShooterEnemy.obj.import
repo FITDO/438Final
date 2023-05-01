@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://uojtxpme1fdq"
+path="res://.godot/imported/ShooterEnemy.obj-efff7bb701a4666f0bb0f05f9eccfd77.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ShooterEnemy.obj-efff7bb701a4666f0bb0f05f9eccfd77.mesh"]
+
+source_file="res://Models/Enemy/ShooterEnemy.obj"
+dest_files=["res://.godot/imported/ShooterEnemy.obj-efff7bb701a4666f0bb0f05f9eccfd77.mesh", "res://.godot/imported/ShooterEnemy.obj-efff7bb701a4666f0bb0f05f9eccfd77.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

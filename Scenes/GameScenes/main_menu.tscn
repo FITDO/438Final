@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfp3k7k0e0q3f"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_gundp"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gundp")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 127
+text = "Cyber Kill"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayButton" type="Button" parent="Main"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 275.0
+offset_right = 700.0
+offset_bottom = 325.0
+text = "Play"
+
+[node name="ControlsButton" type="Button" parent="Main"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 375.0
+offset_right = 700.0
+offset_bottom = 425.0
+text = "Controls
+"
+
+[node name="QuitButton" type="Button" parent="Main"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 475.0
+offset_right = 700.0
+offset_bottom = 525.0
+text = "Quit"
+
+[node name="Controls" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ControlBox" type="Label" parent="Controls"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 275.0
+offset_right = 550.0
+offset_bottom = 775.0
+theme_override_font_sizes/font_size = 19
+text = "Move - WASD
+
+Face Direction - move the Mouse
+
+Swing Sword - LeftClick
+
+Fire Arrow - Hold 'E' or RightClick til a red light appears
+
+Dash - Press a shift while holding the direction you want"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReturnButton" type="Button" parent="Controls"]
+layout_mode = 0
+offset_left = 750.0
+offset_top = 500.0
+offset_right = 950.0
+offset_bottom = 550.0
+text = "Return"
+
+[connection signal="pressed" from="Main/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Main/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="Main/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Controls/ReturnButton" to="." method="_on_return_button_pressed"]

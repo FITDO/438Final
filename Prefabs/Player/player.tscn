@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://bnxilr1egk6fg"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_rsf7i"]
+[ext_resource type="ArrayMesh" uid="uid://dbbvl1r7ucsm" path="res://Models/Player.obj" id="2_bk4ed"]
+[ext_resource type="PackedScene" uid="uid://oi2xojv5kun6" path="res://Prefabs/Player/Sword.tscn" id="2_dppl0"]
+[ext_resource type="AudioStream" uid="uid://dur80iv7bljh" path="res://Sounds/arrowShoot.wav" id="3_0jawg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxqh8"]
+resource_name = "PlayerMaterial"
+albedo_color = Color(0, 0.745098, 1, 1)
+metallic = 0.5
+emission_enabled = true
+emission = Color(0, 0.8, 1, 1)
+emission_energy_multiplier = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxldq"]
+resource_name = "PlayerHeadSetMaterial"
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.5
+emission_enabled = true
+emission = Color(1, 0.243137, 0.243137, 1)
+emission_energy_multiplier = 0.08
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wwhle"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 4
+collision_mask = 115
+script = ExtResource("1_rsf7i")
+
+[node name="RotationHead" type="Node3D" parent="."]
+
+[node name="PlayerBody" type="MeshInstance3D" parent="RotationHead"]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
+layers = 4
+mesh = ExtResource("2_bk4ed")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_uxqh8")
+surface_material_override/1 = SubResource("StandardMaterial3D_mxldq")
+
+[node name="ArrowSpawner" type="Node3D" parent="RotationHead"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.373229, -1.34238)
+
+[node name="SwordPoint" parent="RotationHead" instance=ExtResource("2_dppl0")]
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_wwhle")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="DodgeRefreshTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="DodgeRollTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[node name="ArrowChargeTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="ArrowLight" type="OmniLight3D" parent="."]
+visible = false
+light_color = Color(0.792157, 0, 0.211765, 1)
+light_energy = 7.0
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+
+[node name="Sounds" type="Node3D" parent="."]
+
+[node name="ArrowSound" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource("3_0jawg")
+volume_db = 1.0
+
+[connection signal="timeout" from="Timers/DodgeRefreshTimer" to="." method="_on_dodge_refresh_timer_timeout"]
+[connection signal="timeout" from="Timers/ArrowChargeTimer" to="." method="_on_arrow_charge_timer_timeout"]

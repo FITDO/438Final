@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://oi2xojv5kun6"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Sword.gd" id="1_0dd7n"]
+[ext_resource type="ArrayMesh" uid="uid://6oxwhmbspsvm" path="res://Models/Sword.obj" id="2_81uxf"]
+[ext_resource type="AudioStream" uid="uid://dyyt503yei0l7" path="res://Sounds/swordhit.wav" id="3_t7jya"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_a7mb2"]
+albedo_color = Color(0.286275, 0.286275, 0.286275, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dynyb"]
+albedo_color = Color(0, 0.615686, 0.72549, 1)
+emission_enabled = true
+emission = Color(0, 0.811765, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vs8hh"]
+size = Vector3(1.99068, 0.2, 0.2)
+
+[sub_resource type="Animation" id="Animation_j4b7j"]
+resource_name = "SwordSwing"
+length = 0.4
+step = 0.05
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -0.130526, 0, 0.991445, 0.05, 1, 0, -0.707107, 0, 0.707107, 0.15, 1, 0, 0.991445, 0, -0.130526)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mjmaj"]
+_data = {
+"SwordSwing": SubResource("Animation_j4b7j")
+}
+
+[node name="SwordPoint" type="Node3D"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 0, 0)
+script = ExtResource("1_0dd7n")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+collision_layer = 8
+collision_mask = 16
+
+[node name="SwordMesh" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(0.010978, 0, 0.99994, 0, 1, 0, -0.99994, 0, 0.010978, -0.325686, 0.00695121, 0.00189847)
+mesh = ExtResource("2_81uxf")
+surface_material_override/0 = SubResource("ORMMaterial3D_a7mb2")
+surface_material_override/1 = SubResource("StandardMaterial3D_dynyb")
+
+[node name="SwordCollision" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, -0.32685, 0.00485867, 0.00331473)
+shape = SubResource("BoxShape3D_vs8hh")
+
+[node name="SwordSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -5.96046e-08)
+stream = ExtResource("3_t7jya")
+volume_db = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mjmaj")
+}
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

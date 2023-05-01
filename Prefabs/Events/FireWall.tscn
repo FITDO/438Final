@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bt6m8hyakmuf3"]
+
+[ext_resource type="Script" path="res://Scripts/FireWall.gd" id="1_ggnc8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gx7h6"]
+size = Vector3(0.25, 5, 7)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xbp8u"]
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_box_extents = Vector3(0.175, 0.5, 3)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0.5, 0)
+scale_min = 0.5
+scale_max = 1.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6u8ef"]
+albedo_color = Color(0.854902, 0, 0.0705882, 1)
+emission_enabled = true
+emission = Color(0.996078, 0, 0.0588235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y7gyt"]
+material = SubResource("StandardMaterial3D_6u8ef")
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="FireWall" type="StaticBody3D"]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_ggnc8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gx7h6")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.07468, 0)
+amount = 24
+lifetime = 4.0
+process_material = SubResource("ParticleProcessMaterial_xbp8u")
+draw_pass_1 = SubResource("BoxMesh_y7gyt")

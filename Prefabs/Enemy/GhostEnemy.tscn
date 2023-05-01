@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://150kwbtgj0e3"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/GhostEnemy.gd" id="1_v3k3o"]
+[ext_resource type="Material" uid="uid://c3yindnpn7oii" path="res://Materials/GhostEnemyMaterial.tres" id="2_sgf3f"]
+[ext_resource type="ArrayMesh" uid="uid://bvjhint0ooi6c" path="res://Models/Enemy/GhostEnemy.obj" id="2_yw0ll"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hjppy"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tbxw2"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lwec5"]
+material = ExtResource("2_sgf3f")
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="GhostEnemy" type="CharacterBody3D"]
+collision_layer = 16
+collision_mask = 76
+script = ExtResource("1_v3k3o")
+health = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_hjppy")
+
+[node name="EnemyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+layers = 16
+material_override = ExtResource("2_sgf3f")
+mesh = ExtResource("2_yw0ll")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+layers = 16
+amount = 24
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_tbxw2")
+draw_pass_1 = SubResource("BoxMesh_lwec5")

@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://dsmiavg2utf6d"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/EnemyBullet.gd" id="1_q4jjj"]
+[ext_resource type="ArrayMesh" uid="uid://dganypb2eplvn" path="res://Models/Enemy/EnemyBullet.obj" id="2_wegha"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1db62"]
+albedo_color = Color(0.34902, 0.34902, 0.34902, 1)
+metallic = 1.0
+metallic_specular = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yp2pu"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qmdwy"]
+emission_shape = 3
+emission_box_extents = Vector3(0.4, 0.4, 0.4)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.3
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_obrcc"]
+albedo_color = Color(0.388235, 0, 0.388235, 1)
+emission_enabled = true
+emission = Color(0.506385, 0.00228409, 0.770305, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xre8q"]
+material = SubResource("ORMMaterial3D_obrcc")
+
+[sub_resource type="Animation" id="Animation_e45kh"]
+resource_name = "EnemyBulletRotation"
+length = 3.2
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.4, 1, 0.146447, 0.353553, 0.353553, 0.853553, 0.8, 1, 0.5, 0.5, 0.5, 0.5, 1.2, 1, 0.853553, 0.353553, 0.353553, 0.146447, 1.6, 1, 1, -4.37114e-08, -4.37114e-08, 1.91069e-15, 2, 1, 0.853553, -0.353553, -0.353553, 0.146447, 2.4, 1, 0.5, -0.5, -0.5, 0.5, 2.8, 1, 0.146447, -0.353553, -0.353553, 0.853553, 3.2, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c1lxo"]
+_data = {
+"EnemyBulletRotation": SubResource("Animation_e45kh")
+}
+
+[node name="RigidBody3D" type="RigidBody3D"]
+collision_layer = 32
+collision_mask = 7
+gravity_scale = 0.0
+script = ExtResource("1_q4jjj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 32
+material_override = SubResource("StandardMaterial3D_1db62")
+mesh = ExtResource("2_wegha")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_yp2pu")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_qmdwy")
+draw_pass_1 = SubResource("BoxMesh_xre8q")
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MeshInstance3D")
+autoplay = "EnemyBulletRotation"
+libraries = {
+"": SubResource("AnimationLibrary_c1lxo")
+}
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

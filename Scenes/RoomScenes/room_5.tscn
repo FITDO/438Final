@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://t5jpfwouxqm4"]
+
+[ext_resource type="Script" path="res://Scripts/Room.gd" id="1_ts1v6"]
+[ext_resource type="PackedScene" uid="uid://hr2yf3ii87n8" path="res://Prefabs/Floors/room_5_floor.tscn" id="2_rgj1p"]
+[ext_resource type="PackedScene" uid="uid://bt6m8hyakmuf3" path="res://Prefabs/Events/FireWall.tscn" id="3_7at4s"]
+[ext_resource type="PackedScene" uid="uid://ce6gxt1q71nr5" path="res://Prefabs/kill_plane.tscn" id="4_u335x"]
+[ext_resource type="PackedScene" uid="uid://8t4cbcguyj2b" path="res://Prefabs/Sun.tscn" id="5_cgf8y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0nb1h"]
+size = Vector3(4.71246, 5, 0.884526)
+
+[node name="Room5" type="Node3D"]
+script = ExtResource("1_ts1v6")
+
+[node name="Room5Floor" parent="." instance=ExtResource("2_rgj1p")]
+
+[node name="Firewalls" type="Node3D" parent="."]
+
+[node name="FireWall" parent="Firewalls" instance=ExtResource("3_7at4s")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 1.25672, 0)
+
+[node name="FireWall2" parent="Firewalls" instance=ExtResource("3_7at4s")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 1.24807, -39.5011)
+
+[node name="TriggerBox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -15.311)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerBox"]
+shape = SubResource("BoxShape3D_0nb1h")
+
+[node name="EnemySpawn" type="Node3D" parent="."]
+
+[node name="GhostEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="Spawn1" type="Node3D" parent="EnemySpawn/GhostEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.86714)
+
+[node name="Spawn2" type="Node3D" parent="EnemySpawn/GhostEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -27.0884)
+
+[node name="Spawn4" type="Node3D" parent="EnemySpawn/GhostEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, -27.088)
+
+[node name="ShooterEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="Spawn1" type="Node3D" parent="EnemySpawn/ShooterEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -33)
+
+[node name="Spawn4" type="Node3D" parent="EnemySpawn/ShooterEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, -30)
+
+[node name="Spawn5" type="Node3D" parent="EnemySpawn/ShooterEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 1, -19.049)
+
+[node name="Spawn6" type="Node3D" parent="EnemySpawn/ShooterEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 1, -19.049)
+
+[node name="Spawn7" type="Node3D" parent="EnemySpawn/ShooterEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -19.049)
+
+[node name="TankEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="Spawn1" type="Node3D" parent="EnemySpawn/TankEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -30.863)
+
+[node name="Spawn2" type="Node3D" parent="EnemySpawn/TankEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+
+[node name="SniperEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="Spawn1" type="Node3D" parent="EnemySpawn/SniperEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -33)
+
+[node name="Spawn2" type="Node3D" parent="EnemySpawn/SniperEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, -33)
+
+[node name="KillPlane" parent="." node_paths=PackedStringArray("teleportPoint") instance=ExtResource("4_u335x")]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, -15, -21.253)
+teleportPoint = NodePath("../TeleportPoint")
+
+[node name="TeleportPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3)
+
+[node name="SpawnedEnemies" type="Node3D" parent="."]
+
+[node name="Sun" parent="." instance=ExtResource("5_cgf8y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 9, -25)
+
+[node name="Sun2" parent="." instance=ExtResource("5_cgf8y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 9, -25)

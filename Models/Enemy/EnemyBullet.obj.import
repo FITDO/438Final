@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dganypb2eplvn"
+path="res://.godot/imported/EnemyBullet.obj-29dfd0f9e305c424a2e9e30f758a1908.mesh"
+
+[deps]
+
+files=["res://.godot/imported/EnemyBullet.obj-29dfd0f9e305c424a2e9e30f758a1908.mesh"]
+
+source_file="res://Models/Enemy/EnemyBullet.obj"
+dest_files=["res://.godot/imported/EnemyBullet.obj-29dfd0f9e305c424a2e9e30f758a1908.mesh", "res://.godot/imported/EnemyBullet.obj-29dfd0f9e305c424a2e9e30f758a1908.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

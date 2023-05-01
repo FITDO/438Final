@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyvknfpca4r7a"]
+
+[ext_resource type="Texture2D" uid="uid://c2baxcbjklqmw" path="res://Images/fullHeartMini.png" id="1_hq7is"]
+[ext_resource type="Script" path="res://Scripts/Player/GameUI.gd" id="1_usqgu"]
+[ext_resource type="Texture2D" uid="uid://blgekrgngiexw" path="res://Images/fullHexagonMini.png" id="2_1fi8p"]
+[ext_resource type="Texture2D" uid="uid://b1ch2p8ggiyld" path="res://Images/windMini.png" id="4_7elwe"]
+
+[node name="GameHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_usqgu")
+
+[node name="HealthBar" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 1.0
+offset_right = 158.0
+offset_bottom = 37.0
+
+[node name="Heart1" type="Sprite2D" parent="HealthBar"]
+position = Vector2(20, 20)
+texture = ExtResource("1_hq7is")
+
+[node name="Heart2" type="Sprite2D" parent="HealthBar"]
+position = Vector2(50, 20)
+texture = ExtResource("1_hq7is")
+
+[node name="Heart3" type="Sprite2D" parent="HealthBar"]
+position = Vector2(80, 20)
+texture = ExtResource("1_hq7is")
+
+[node name="Heart4" type="Sprite2D" parent="HealthBar"]
+position = Vector2(110, 20)
+texture = ExtResource("1_hq7is")
+
+[node name="Heart5" type="Sprite2D" parent="HealthBar"]
+position = Vector2(140, 20)
+texture = ExtResource("1_hq7is")
+
+[node name="MagicBar" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Magic1" type="Sprite2D" parent="MagicBar"]
+position = Vector2(20, 55)
+texture = ExtResource("2_1fi8p")
+
+[node name="Magic2" type="Sprite2D" parent="MagicBar"]
+position = Vector2(50, 55)
+texture = ExtResource("2_1fi8p")
+
+[node name="Magic3" type="Sprite2D" parent="MagicBar"]
+position = Vector2(80, 55)
+texture = ExtResource("2_1fi8p")
+
+[node name="DodgeBar" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Wind1" type="Sprite2D" parent="DodgeBar"]
+position = Vector2(20, 89)
+texture = ExtResource("4_7elwe")

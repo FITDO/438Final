@@ -1,0 +1,10 @@
+1: ground
+2: world
+3: player
+4: playerWeapons
+5: enemies
+6: enemyWeapons
+7: fireWalls
+8: MousePlane
+
+etc

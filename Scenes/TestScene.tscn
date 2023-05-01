@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6d5jp3yfy8x0"]
+
+[ext_resource type="PackedScene" uid="uid://uy1j461ykyyh" path="res://Prefabs/Floors/floor.tscn" id="1_1s84c"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_r4wbe"]
+[ext_resource type="PackedScene" uid="uid://bnxilr1egk6fg" path="res://Prefabs/Player/player.tscn" id="2_y4dm1"]
+[ext_resource type="Texture2D" uid="uid://dndshxv57pnk6" path="res://icon.svg" id="3_isn0h"]
+[ext_resource type="PackedScene" path="res://Prefabs/GameHud.tscn" id="5_5h7sq"]
+[ext_resource type="PackedScene" uid="uid://40t785bxdw5b" path="res://Scenes/RoomScenes/Testroom.tscn" id="6_845dm"]
+[ext_resource type="PackedScene" uid="uid://b08c6v6yeeuum" path="res://Prefabs/Enemy/SniperEnemy.tscn" id="7_12lpx"]
+
+[node name="TestScene" type="Node3D"]
+script = ExtResource("1_r4wbe")
+
+[node name="SunLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1.81059e-08, -0.707107, -0.707107, -6.18172e-08, -0.707107, 0.707107, -1, 5.65142e-08, -3.09086e-08, 0, 4.12768, 0)
+light_color = Color(0.341176, 0.768627, 1, 1)
+
+[node name="PlayerMouse" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105694, 1.11491, -0.656286)
+size = Vector3(1, 3, 1)
+texture_albedo = ExtResource("3_isn0h")
+cull_mask = 1
+
+[node name="GameHud" parent="." instance=ExtResource("5_5h7sq")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("playerCamera", "mouseMarker") instance=ExtResource("2_y4dm1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10343, 0)
+playerCamera = NodePath("Camera3D")
+mouseMarker = NodePath("../PlayerMouse")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 10)
+
+[node name="Floor" parent="." instance=ExtResource("1_1s84c")]
+
+[node name="TestRoom" parent="." instance=ExtResource("6_845dm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.789172, 0, -26.8326)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.487)
+
+[node name="Node3D" type="Node3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5933, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5565, 0, 0)
+
+[node name="SniperEnemy" parent="Node3D/Node3D/Node3D" instance=ExtResource("7_12lpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5689, 2.08464, -13.649)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dbbvl1r7ucsm"
+path="res://.godot/imported/Player.obj-7483a95c41e59fc3e96d3ba536bfd18d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Player.obj-7483a95c41e59fc3e96d3ba536bfd18d.mesh"]
+
+source_file="res://Models/Player.obj"
+dest_files=["res://.godot/imported/Player.obj-7483a95c41e59fc3e96d3ba536bfd18d.mesh", "res://.godot/imported/Player.obj-7483a95c41e59fc3e96d3ba536bfd18d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

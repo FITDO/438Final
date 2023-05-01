@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://brov7r4gp28it"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Heart.gd" id="1_7kqoq"]
+[ext_resource type="ArrayMesh" uid="uid://dddcjw31ycg74" path="res://Models/Heart.obj" id="2_hfha5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkmwo"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.686275, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wxowy"]
+size = Vector3(1.541, 1.26056, 1)
+
+[sub_resource type="Animation" id="Animation_tnxwe"]
+resource_name = "Spin"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.25, 1, 0, 0.707107, 0, 0.707107, 0.5, 1, 0, 1, 0, -4.37114e-08)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l4u8h"]
+_data = {
+"Spin": SubResource("Animation_tnxwe")
+}
+
+[node name="Heart" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_7kqoq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_hfha5")
+surface_material_override/0 = SubResource("StandardMaterial3D_tkmwo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.513895, 0)
+shape = SubResource("BoxShape3D_wxowy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Spin"
+speed_scale = 0.5
+libraries = {
+"": SubResource("AnimationLibrary_l4u8h")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

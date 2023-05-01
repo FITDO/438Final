@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://df5yyft7xe0rb"]
+
+[ext_resource type="Script" path="res://Scripts/Room.gd" id="1_e8e0d"]
+[ext_resource type="PackedScene" uid="uid://djng57wtqhhd6" path="res://Prefabs/Floors/room_1_floor.tscn" id="1_g5n11"]
+[ext_resource type="PackedScene" uid="uid://bt6m8hyakmuf3" path="res://Prefabs/Events/FireWall.tscn" id="2_2lgot"]
+[ext_resource type="PackedScene" uid="uid://ce6gxt1q71nr5" path="res://Prefabs/kill_plane.tscn" id="3_apdtd"]
+[ext_resource type="PackedScene" uid="uid://8t4cbcguyj2b" path="res://Prefabs/Sun.tscn" id="5_o7r81"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0nb1h"]
+size = Vector3(35, 5, 1)
+
+[node name="Room1" type="Node3D"]
+script = ExtResource("1_e8e0d")
+
+[node name="Room1Floor" parent="." instance=ExtResource("1_g5n11")]
+
+[node name="Firewalls" type="Node3D" parent="."]
+
+[node name="FireWall1" parent="Firewalls" instance=ExtResource("2_2lgot")]
+transform = Transform3D(-6.11959e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.11959e-08, 0, 2.54053, -17.92)
+
+[node name="FireWall2" parent="Firewalls" instance=ExtResource("2_2lgot")]
+transform = Transform3D(-6.11959e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.11959e-08, 0, 2.54053, -71.3154)
+
+[node name="TriggerBox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -36.897)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerBox"]
+shape = SubResource("BoxShape3D_0nb1h")
+
+[node name="EnemySpawn" type="Node3D" parent="."]
+
+[node name="GhostEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="Spawn1" type="Node3D" parent="EnemySpawn/GhostEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -60)
+
+[node name="Spawn2" type="Node3D" parent="EnemySpawn/GhostEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 1.5, -45)
+
+[node name="Spawn3" type="Node3D" parent="EnemySpawn/GhostEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, -45)
+
+[node name="Spawn4" type="Node3D" parent="EnemySpawn/GhostEnemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -20)
+
+[node name="ShooterEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="TankEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="SniperEnemies" type="Node3D" parent="EnemySpawn"]
+
+[node name="KillPlane" parent="." node_paths=PackedStringArray("teleportPoint") instance=ExtResource("3_apdtd")]
+transform = Transform3D(90, 0, 0, 0, 90, 0, 0, 0, 90, 0, -15, -28.774)
+teleportPoint = NodePath("../TeleportPoint")
+
+[node name="TeleportPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -23)
+
+[node name="SpawnedEnemies" type="Node3D" parent="."]
+
+[node name="Sun" parent="." instance=ExtResource("5_o7r81")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -48.0312)
+
+[node name="Sun2" parent="." instance=ExtResource("5_o7r81")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00803852, 12.0286, -0.0160503)

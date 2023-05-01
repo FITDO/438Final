@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://b08c6v6yeeuum"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/SniperEnemy.gd" id="1_x1of3"]
+[ext_resource type="ArrayMesh" uid="uid://ctqaci4u1l7jq" path="res://Models/Enemy/Sniper.obj" id="2_rgwsl"]
+[ext_resource type="Animation" uid="uid://cj3o51dr73cgo" path="res://Animations/Idle.res" id="3_g0ndm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_v1pbl"]
+size = Vector3(0.08, 0.08, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aatfy"]
+albedo_color = Color(0.815686, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.65098, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l8nwp"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gs7hp"]
+size = Vector3(1.2, 2.8, 1.2)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xfnx7"]
+_data = {
+"Idle": ExtResource("3_g0ndm")
+}
+
+[node name="SniperEnemy" type="CharacterBody3D"]
+collision_layer = 16
+collision_mask = 79
+script = ExtResource("1_x1of3")
+health = 2
+damage = 2
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 0)
+collision_mask = 7
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="LaserScaler" type="Node3D" parent="."]
+
+[node name="VisLaser" type="MeshInstance3D" parent="LaserScaler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+layers = 32
+mesh = SubResource("BoxMesh_v1pbl")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_aatfy")
+
+[node name="EnemyBody" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.77489e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, 3.77489e-08, 0, 0, 0)
+layers = 16
+mesh = ExtResource("2_rgwsl")
+surface_material_override/0 = SubResource("StandardMaterial3D_l8nwp")
+
+[node name="EnemyCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gs7hp")
+
+[node name="ShootTime" type="Timer" parent="."]
+wait_time = 4.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../EnemyCollision")
+autoplay = "Idle"
+speed_scale = 0.8
+libraries = {
+"": SubResource("AnimationLibrary_xfnx7")
+}
+
+[connection signal="timeout" from="ShootTime" to="." method="_on_shoot_timer_timeout"]

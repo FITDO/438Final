@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce6gxt1q71nr5"]
+
+[ext_resource type="Script" path="res://Scripts/kill_plane.gd" id="1_cxoge"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qsmup"]
+size = Vector3(1, 0, 1)
+
+[node name="KillPlane" type="Area3D"]
+collision_mask = 5
+script = ExtResource("1_cxoge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_qsmup")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

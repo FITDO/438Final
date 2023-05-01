@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1aygeduwu41h"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Arrow.gd" id="1_qfkvx"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_xma01"]
+albedo_color = Color(0, 0.443137, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g52i3"]
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.7
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vjwmg"]
+size = Vector3(0.2, 0.2, 0.8)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_07hgu"]
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.5, 0.5)
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmwas"]
+albedo_color = Color(0, 0.52549, 0.52549, 1)
+emission_enabled = true
+emission = Color(0.2, 0.427451, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_n4s8w"]
+material = SubResource("StandardMaterial3D_xmwas")
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="Arrow" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 19
+gravity_scale = 0.0
+script = ExtResource("1_qfkvx")
+
+[node name="ArrowMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ORMMaterial3D_xma01")
+mesh = SubResource("CylinderMesh_g52i3")
+skeleton = NodePath("../ArrowCollision")
+
+[node name="ArrowCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vjwmg")
+
+[node name="BulletPatricles" type="GPUParticles3D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_07hgu")
+draw_pass_1 = SubResource("BoxMesh_n4s8w")
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
